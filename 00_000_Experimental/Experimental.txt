@@ -1,0 +1,18 @@
+;we use external function ExitProcess
+;from Kernel32.dll to quit our program
+extrn ExitProcess : proc
+
+.code
+;Main procedure is Entry Point of our program
+Main proc
+    ;allocate shadow space as described
+    ;in Microsoft x64 calling convention
+    sub rsp, 28h
+
+    ;our code goes here.
+
+
+    xor rcx, rcx ;RCX contains exit code (zero)
+    call ExitProcess ;calling WinAPI function
+Main endp
+end

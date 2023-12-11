@@ -1,0 +1,10 @@
+LIBRARY
+EXPORTS
+    AddProc
+    SubProc
+    MulProc
+    DivProc
+    AndProc
+    AndNProc
+    OrProc
+    XorProc

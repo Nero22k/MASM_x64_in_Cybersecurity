@@ -1,0 +1,54 @@
+﻿
+;DOSBox Emulator and Borland Turbo Assembler needed.
+;tasm.exe program.asm
+;tlink.exe program.obj
+;PE file is created. Perform bytes extraction
+;and apply NULL padding to 512 bytes.
+
+.model small
+.code
+org 7C00h
+start:
+	mov ax, 0600h
+    mov bh, 1Fh
+    mov cx, 0000h
+    mov dx, 184Fh
+    int 10h
+
+	mov ah, 02h
+    sub bh, bh
+    mov dh, 01h
+    mov dl, 01h
+    int 10h
+
+	lea si, ethical
+	cld
+	
+_loop:
+	mov al, [si]
+	test al, al
+	jz _quit
+	
+	mov ah, 0Eh
+	int 10h
+
+	inc si
+	jmp _loop
+_quit:
+    mov ah, 0
+    int 16h
+	
+    hlt
+
+ethical db 0Dh, 0Ah
+db "       _   _     _           _   _     _            ", 0Dh, 0Ah
+db "      | | | |   (_)         | | | |   | |           ", 0Dh, 0Ah
+db "   ___| |_| |__  _  ___ __ _| | | |__ | |_   _  ___ ", 0Dh, 0Ah
+db "  / _ \ __| '_ \| |/ __/ _` | | | '_ \| | | | |/ _ |", 0Dh, 0Ah
+db " |  __/ |_| | | | | (_| (_| | |_| |_) | | |_| |  __/", 0Dh, 0Ah
+db "  \___|\__|_| |_|_|\___\__,_|_(_)_.__/|_|\__,_|\___|", 0Dh, 0Ah
+db "                                           Magazine ", 0Dh, 0Ah
+db " // Cybersecurity clarified.", 0Dh, 0Ah, 0Dh, 0Ah
+db " Sector Zero has been corrupted. o_O ", 0Dh, 0Ah
+db 00h, 00h, 00h, 55h, 0AAh
+end start
